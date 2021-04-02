@@ -81,7 +81,7 @@ resource "aws_db_instance" "hhk-rds-db" {
   engine                     = "mysql"
   engine_version             = "5.7"
   instance_class             = "db.t2.micro"
-  name                       = "mydb"
+  name                       = "hhk-db"
   username                   = var.username
   password                   = var.password
   parameter_group_name       = "default.mysql5.7"
@@ -132,15 +132,22 @@ resource "aws_iam_role_policy_attachment" "EC2ContainerRegistryReadOnly" {
   role       = aws_iam_role.IAM-hhk.name
 }
 
+resource "aws_cloudwatch_log_group" "hhk-cloudwatch-eks" {
+  name              = "/aws/eks/${aws_eks_cluster.ekscluster.name}/cluster"
+  retention_in_days = 7
+}
+
 resource "aws_eks_cluster" "ekscluster" {
-  name     = "eks-cluster"
-  role_arn = aws_iam_role.IAM-hhk.arn
+  name                      = "eks-cluster"
+  enabled_cluster_log_types = ["api", "audit"]
+  role_arn                  = aws_iam_role.IAM-hhk.arn
   vpc_config {
     subnet_ids         = ["subnet-0da84b70", "subnet-407f340c"]
     security_group_ids = [aws_security_group.hhk-sg.id]
   }
   depends_on = [
     aws_iam_role_policy_attachment.Cluster-Policy,
+    aws_cloudwatch_log_group.hhk-cloudwatch-eks
   ]
   tags = {
     "Name" = " EKS-CLUSTER"
