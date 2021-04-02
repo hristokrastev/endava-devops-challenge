@@ -1,0 +1,6 @@
+*.tfstate
+*.tfstate.backup
+.terraform.*
+tfplan*
+.terraform*
+.terraform/modules/autoscaling_example_asg_elb
