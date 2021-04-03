@@ -19,3 +19,8 @@ variable "public_subnets" {
   default     = ["subnet-0da84b70", "subnet-407f340c", "subnet-5e329835"]
   description = "The public subnets of our RDS VPC rds-vpc."
 }
+
+variable "alarms_email" {
+  default     = "hristo.krastevii@gmail.com"
+  description = "email for the alarm"
+}
