@@ -1,11 +1,11 @@
 variable "password" {
-  description = "Username for the DB"
+  description = "Password for the DB"
   type        = string
   default     = "Thisisnotsecurepassword!234"
 }
 
 variable "username" {
-  description = "Password for the DB"
+  description = "Username for the DB" 
   type        = string
   default     = "hhk"
 }
@@ -21,6 +21,6 @@ variable "public_subnets" {
 }
 
 variable "alarms_email" {
-  default     = "hristo.krastevii@gmail.com"
+  default     = "shadow_6@abv.bg"
   description = "email for the alarm"
 }
